@@ -72,10 +72,19 @@ button {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 button:hover {
   background: #b91c1c;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .status-msg {
@@ -99,5 +108,67 @@ button:hover {
 
 .request-card h3 {
   margin: 0 0 8px 0;
+  color: #f87171;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.home-hero {
+  max-width: 640px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.home-hero h1 {
+  font-size: 2.4rem;
+  color: #f87171;
+  margin-bottom: 12px;
+}
+
+.home-hero p {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+}
+
+.home-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home-buttons a {
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.15s;
+}
+
+.home-buttons a:hover {
+  transform: translateY(-2px);
+}
+
+.btn-donor {
+  background: #dc2626;
+  color: #fff;
+}
+
+.btn-request {
+  background: transparent;
+  border: 2px solid #dc2626;
   color: #f87171;
 }

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { db } from "../firebase";
+import { auth } from "../AuthContext";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
+import Spinner from "./Spinner";
 
 const BLOOD_TYPES = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const COUNTIES = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Uasin Gishu", "Kiambu", "Machakos"];
@@ -15,6 +17,7 @@ export default function RequestForm() {
     contactPhone: "",
   });
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,12 +25,15 @@ export default function RequestForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Posting request...");
+    setLoading(true);
+    setStatus("");
     try {
       await addDoc(collection(db, "requests"), {
         ...form,
         unitsNeeded: Number(form.unitsNeeded),
         status: "open",
+        ownerId: auth.currentUser.uid,
+        ownerEmail: auth.currentUser.email,
         createdAt: Timestamp.now(),
       });
       setStatus("Request posted! Nearby donors will be notified.");
@@ -36,6 +42,7 @@ export default function RequestForm() {
       console.error(err);
       setStatus("Error posting request. Check console.");
     }
+    setLoading(false);
   };
 
   return (
@@ -61,7 +68,9 @@ export default function RequestForm() {
           <option value="critical">Critical</option>
         </select>
         <input name="contactPhone" placeholder="Contact Phone" value={form.contactPhone} onChange={handleChange} required />
-        <button type="submit">Post Request</button>
+        <button type="submit" disabled={loading}>
+          {loading && <Spinner />} {loading ? "Posting..." : "Post Request"}
+        </button>
         {status && <p className="status-msg">{status}</p>}
       </form>
     </div>

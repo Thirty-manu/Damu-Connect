@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
+import Spinner from "./Spinner";
 
 const BLOOD_TYPES = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const COUNTIES = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Uasin Gishu", "Kiambu", "Machakos"];
@@ -14,6 +15,7 @@ export default function DonorForm() {
     lastDonationDate: "",
   });
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,7 +23,8 @@ export default function DonorForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Saving...");
+    setLoading(true);
+    setStatus("");
     try {
       await addDoc(collection(db, "donors"), {
         ...form,
@@ -35,6 +38,7 @@ export default function DonorForm() {
       console.error(err);
       setStatus("Error saving donor. Check console.");
     }
+    setLoading(false);
   };
 
   return (
@@ -57,7 +61,9 @@ export default function DonorForm() {
         </select>
         <label style={{fontSize: "13px", color: "#94a3b8"}}>Last Donation Date (optional)</label>
         <input name="lastDonationDate" type="date" value={form.lastDonationDate} onChange={handleChange} />
-        <button type="submit">Register as Donor</button>
+        <button type="submit" disabled={loading}>
+          {loading && <Spinner />} {loading ? "Saving..." : "Register as Donor"}
+        </button>
         {status && <p className="status-msg">{status}</p>}
       </form>
     </div>
