@@ -43,20 +43,14 @@ nav a.active {
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
 }
 
-.hero {
+.home-hero {
   max-width: 720px;
   margin: 0 auto;
   text-align: center;
   padding: 120px 24px 100px;
 }
 
-.hero .badge {
-  font-size: 3rem;
-  display: block;
-  margin-bottom: 20px;
-}
-
-.hero h1 {
+.home-hero h1 {
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -66,14 +60,14 @@ nav a.active {
   color: transparent;
 }
 
-.hero p {
+.home-hero p {
   color: #94a3b8;
   margin-top: 16px;
   font-size: 1.15rem;
   line-height: 1.6;
 }
 
-.btn-group {
+.home-buttons {
   margin-top: 40px;
   display: flex;
   justify-content: center;
@@ -81,7 +75,7 @@ nav a.active {
   flex-wrap: wrap;
 }
 
-.btn-primary, .btn-outline {
+.btn-donor, .btn-request {
   padding: 14px 28px;
   border-radius: 10px;
   font-weight: 600;
@@ -91,25 +85,25 @@ nav a.active {
   display: inline-block;
 }
 
-.btn-primary {
+.btn-donor {
   background-color: #ef4444;
   color: white;
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
 }
 
-.btn-primary:hover {
+.btn-donor:hover {
   background-color: #dc2626;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
 }
 
-.btn-outline {
+.btn-request {
   border: 1.5px solid rgba(239, 68, 68, 0.5);
   color: #f87171;
   background: transparent;
 }
 
-.btn-outline:hover {
+.btn-request:hover {
   background-color: rgba(239, 68, 68, 0.08);
   border-color: #ef4444;
   transform: translateY(-2px);
